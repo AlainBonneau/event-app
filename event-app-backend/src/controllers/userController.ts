@@ -25,11 +25,36 @@ export const registerUser = async (req: Request, res: Response) => {
       .status(201)
       .json({ message: "Utilisateur créer avec succès", user: newUser });
   } catch (error) {
+    res.status(500).json({
+      message: "Erreur survenu lors de la création de l'utilisateur",
+      error,
+    });
+  }
+};
+
+export const loginUser = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur introuvable" });
+    }
+
+    const verifyPassword = bcrypt.compare(password, user.password);
+    if (!verifyPassword) {
+      return res.status(401).json({ message: "Mauvais mot de passe" });
+    }
+
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_SECRET as string,
+      { expiresIn: "2h" }
+    );
+    res.status(200).json({ message: "Connexion réussie", token });
+  } catch (error) {
     res
       .status(500)
-      .json({
-        message: "Erreur survenu lors de la création de l'utilisateur",
-        error,
-      });
+      .json({ message: "Erreur de la connexion de l'utilisateur", error });
   }
 };

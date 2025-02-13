@@ -3,13 +3,17 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
 
-export const registerUser = async (req: Request, res: Response) => {
+export const registerUser = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const { email, password } = req.body;
 
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
-      return res.status(400).json({ message: "Cet utilisateur existe déjà." });
+      res.status(400).json({ message: "Cet utilisateur existe déjà." });
+      return;
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -29,21 +33,24 @@ export const registerUser = async (req: Request, res: Response) => {
       message: "Erreur survenu lors de la création de l'utilisateur",
       error,
     });
+    return;
   }
 };
 
-export const loginUser = async (req: Request, res: Response) => {
+export const loginUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body;
 
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.status(404).json({ message: "Utilisateur introuvable" });
+      res.status(404).json({ message: "Utilisateur introuvable" });
+      return;
     }
 
     const verifyPassword = bcrypt.compare(password, user.password);
     if (!verifyPassword) {
-      return res.status(401).json({ message: "Mauvais mot de passe" });
+      res.status(401).json({ message: "Mauvais mot de passe" });
+      return;
     }
 
     const token = jwt.sign(
@@ -56,10 +63,14 @@ export const loginUser = async (req: Request, res: Response) => {
     res
       .status(500)
       .json({ message: "Erreur de la connexion de l'utilisateur", error });
+    return;
   }
 };
 
-export const getUserProfile = async (req: Request, res: Response) => {
+export const getUserProfile = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const { id } = req.params;
     const user = await User.findByPk(id, {
@@ -67,16 +78,16 @@ export const getUserProfile = async (req: Request, res: Response) => {
     });
 
     if (!user) {
-      return res.status(404).json({ message: "Utilisateur introuvable" });
+      res.status(404).json({ message: "Utilisateur introuvable" });
+      return;
     }
 
-    return res.status(200).json(user);
+    res.status(200).json(user);
   } catch (error) {
-    return res
-      .status(500)
-      .json({
-        message: "Erreur de de la récupération du profil de l'utilisateur",
-        error,
-      });
+    res.status(500).json({
+      message: "Erreur de de la récupération du profil de l'utilisateur",
+      error,
+    });
+    return;
   }
 };

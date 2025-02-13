@@ -58,3 +58,25 @@ export const loginUser = async (req: Request, res: Response) => {
       .json({ message: "Erreur de la connexion de l'utilisateur", error });
   }
 };
+
+export const getUserProfile = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findByPk(id, {
+      attributes: { exclude: ["password"] },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur introuvable" });
+    }
+
+    return res.status(200).json(user);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({
+        message: "Erreur de de la récupération du profil de l'utilisateur",
+        error,
+      });
+  }
+};

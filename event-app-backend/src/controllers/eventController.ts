@@ -46,5 +46,24 @@ export const createEvent = async (
     res
       .status(500)
       .json({ message: "Erreur lors de la création d'un évènement", error });
+    return;
+  }
+};
+
+export const getAllEvents = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const allEvents = await Event.findAll();
+    res.status(200).json({ message: "Voici tous les évènements", allEvents });
+  } catch (error) {
+    res
+      .status(500)
+      .json({
+        message: "Erreur lors de la récupération des événements",
+        error,
+      });
+    return;
   }
 };

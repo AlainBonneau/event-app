@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import sequelize from "./config/database";
 import userRoutes from "./routes/userRoutes";
+import eventController from "./routes/eventRoutes";
 
 dotenv.config();
 
@@ -33,5 +34,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/events", eventController);
 
 startServer();

@@ -93,3 +93,40 @@ export const getEventById = async (
     });
   }
 };
+
+export const updateEvent = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const eventId = parseInt(req.params.id, 10);
+    const event = await Event.findByPk(eventId);
+
+    if (!event) {
+      res.status(404).json({ message: "Evenement introuvable" });
+      return;
+    }
+
+    if (isNaN(eventId)) {
+      res.status(400).json({ message: "ID d'événement invalide" });
+      return;
+    }
+
+    const { title, description, date, location, category, maxParticipants } =
+      req.body;
+
+    await Event.update(
+      { title, description, date, location, category, maxParticipants },
+      { where: { id: eventId } }
+    );
+
+    const updatedEvent = await Event.findByPk(eventId);
+    res
+      .status(200)
+      .json({ message: "Evenement mis à jour", event: updatedEvent });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la mise à jour de l'événement", error });
+  }
+};

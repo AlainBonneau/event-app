@@ -130,3 +130,31 @@ export const updateEvent = async (
       .json({ message: "Erreur lors de la mise à jour de l'événement", error });
   }
 };
+
+export const deleteEvent = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const eventId = parseInt(req.params.id);
+
+    if (isNaN(eventId)) {
+      res.status(400).json({ message: "ID d'événement invalide" });
+      return;
+    }
+
+    const event = await Event.findByPk(eventId);
+
+    if (!event) {
+      res.status(404).json({ message: "Evenement introuvable" });
+      return;
+    }
+
+    await Event.destroy({ where: { id: eventId } });
+    res.status(200).json({ message: "Evenement supprimé" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la suppression de l'événement", error });
+  }
+};

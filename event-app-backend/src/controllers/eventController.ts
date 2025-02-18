@@ -58,12 +58,38 @@ export const getAllEvents = async (
     const allEvents = await Event.findAll();
     res.status(200).json({ message: "Voici tous les évènements", allEvents });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Erreur lors de la récupération des événements",
-        error,
-      });
+    res.status(500).json({
+      message: "Erreur lors de la récupération des événements",
+      error,
+    });
     return;
+  }
+};
+
+export const getEventById = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const eventId = parseInt(req.params.id, 10);
+
+    if (isNaN(eventId)) {
+      res.status(400).json({ message: "ID d'événement invalide" });
+      return;
+    }
+
+    const event = await Event.findByPk(eventId);
+
+    if (!event) {
+      res.status(404).json({ message: "Événement introuvable" });
+      return;
+    }
+
+    res.status(200).json(event);
+  } catch (error) {
+    res.status(500).json({
+      message: "Erreur lors de la récupération de l'événement",
+      error,
+    });
   }
 };

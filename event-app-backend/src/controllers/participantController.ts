@@ -20,11 +20,9 @@ export const registerToEvent = async (
     const participantCount = await Participant.count({ where: { eventId } });
 
     if (participantCount >= event.maxParticipants) {
-      res
-        .status(403)
-        .json({
-          message: "L'événement a atteint son nombre maximum de participants",
-        });
+      res.status(403).json({
+        message: "L'événement a atteint son nombre maximum de participants",
+      });
       return;
     }
 
@@ -115,5 +113,33 @@ export const getParticipantByEvent = async (
       message: "Erreur lors de la récupération des participants",
       error,
     });
+  }
+};
+
+export const countParticipantsByEvent = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const eventId = parseInt(req.params.eventId, 10);
+
+    if (isNaN(eventId)) {
+      res.status(400).json({ message: "ID d'événement invalide" });
+      return;
+    }
+
+    const event = await Event.findByPk(eventId);
+    if (!event) {
+      res.status(404).json({ message: "Événement introuvable" });
+      return;
+    }
+
+    const participantCount = await Participant.count({ where: { eventId } });
+
+    res.status(200).json({ eventId, participantCount });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erreur lors du comptage des participants", error });
   }
 };

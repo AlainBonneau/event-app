@@ -3,12 +3,13 @@ import cors from "cors";
 import dotenv from "dotenv";
 import sequelize from "./config/database";
 import userRoutes from "./routes/userRoutes";
-import eventController from "./routes/eventRoutes";
+import eventRoutes from "./routes/eventRoutes";
+import participantRoutes from "./routes/ParticipantRoutes";
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5002;
 
 app.use(cors());
 app.use(express.json());
@@ -34,6 +35,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
-app.use("/api/events", eventController);
+app.use("/api/events", eventRoutes);
+app.use("/api/participants", participantRoutes);
 
 startServer();

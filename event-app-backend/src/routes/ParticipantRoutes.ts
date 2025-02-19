@@ -9,7 +9,7 @@ import {
 const router = express.Router();
 
 router.get("/:id", getParticipantByEvent);
-router.get("/count/:eventId")
+router.get("/count/:eventId", countParticipantsByEvent)
 router.post("/", registerToEvent);
 router.delete("/:id", deleteParticipant);
 

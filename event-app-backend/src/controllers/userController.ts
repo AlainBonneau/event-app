@@ -91,3 +91,24 @@ export const getUserProfile = async (
     return;
   }
 };
+
+export const getCurrentUser = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    if (!req.user) {
+      res.status(401).json({ message: "Non autorisé" });
+    }
+
+    res.status(200).json({
+      id: req.user?.id,
+      email: req.user?.email,
+      role: req.user?.role,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la récupération du profil", error });
+  }
+};

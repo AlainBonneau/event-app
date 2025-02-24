@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
+import { where } from "sequelize";
 
 export const registerUser = async (
   req: Request,
@@ -110,5 +111,44 @@ export const getCurrentUser = async (
     res
       .status(500)
       .json({ message: "Erreur lors de la récupération du profil", error });
+  }
+};
+
+export const updateProfile = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    if (!req.user) {
+      res.status(401).json({ message: "Utilisateur non connecté" });
+      return;
+    }
+
+    const { email, password } = req.body;
+    const updatedData: { email?: string; password?: string } = {};
+
+    if (email) {
+      updatedData.email = email;
+    }
+
+    if (password) {
+      const saltRounds = 10;
+      updatedData.password = await bcrypt.hash(password, saltRounds);
+    }
+
+    await User.update(updatedData, { where: { id: req.user.id } });
+
+    res.status(200).json({
+      message: "Profil mis à jour avec succès",
+      user: {
+        id: req.user.id,
+        email: email || req.user.email,
+        role: req.user.role,
+      },
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la mise à jour du profil", error });
   }
 };

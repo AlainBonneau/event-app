@@ -152,3 +152,30 @@ export const updateProfile = async (
       .json({ message: "Erreur lors de la mise à jour du profil", error });
   }
 };
+
+export const deleteAccount = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    if (!req.user) {
+      res.status(401).json({ message: "Utilisateur non connecté" });
+      return;
+    }
+
+    const user = req.user.id;
+
+    const deletedUser = await User.destroy({ where: { id: user } });
+
+    if (deletedUser === 0) {
+      res.status(404).json({ message: "Compte introuvable " });
+      return;
+    }
+
+    res.status(200).json({ message: "Compte supprimé avec succès" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la suppression du compte", error });
+  }
+};

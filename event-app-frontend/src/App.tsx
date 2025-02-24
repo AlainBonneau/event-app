@@ -1,11 +1,12 @@
-function App() {
+import AppRoutes from "./routes/AppRoutes";
+import { AuthProvider } from "./context/AuthContext";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Event App</h1>
-      </header>
-    </div>
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
   );
-}
+};
 
 export default App;

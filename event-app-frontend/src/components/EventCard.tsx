@@ -8,6 +8,8 @@ interface EventCardProps {
   events: Event[];
 }
 
+// Changer le contenu du fichier EventCard.tsx en respectant les wireframes
+
 const EventCard = ({ events }: EventCardProps) => {
   return (
     <div className="container mx-auto p-4">

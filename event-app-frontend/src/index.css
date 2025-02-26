@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-    --color-test-100: "#007bff"; /* Bleu */
-    --color-secondary: "#ff7f50"; /* Orange doux */
-    --color-background: "#f8f9fa"; /* Gris clair */
-    --color-textPrimary: "#212529"; /* Gris anthracite */
-    --color-textSecondary: "#6c757d"; /* Gris moyen */
+    --color-primary: #007bff; /* Bleu */
+    --color-secondary: #ff7f50; /* Orange doux */
+    --color-background: #f8f9fa; /* Gris clair */
+    --color-textPrimary: #212529; /* Gris anthracite */
+    --color-textSecondary: #6c757d; /* Gris moyen */
 }
 

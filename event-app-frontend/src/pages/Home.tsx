@@ -1,34 +1,10 @@
-import { useState, useEffect } from "react";
-import api from "../api/axiosConfig";
-import EventCard from "../components/EventCard";
-
 const Home = () => {
-  const [events, setEvents] = useState([]);
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await api.get("/events/");
-
-        if (!response || !response.data) {
-          throw new Error("Réponse vide ou invalide");
-        }
-
-        console.log("API response:", response.data);
-
-        setEvents(response.data.allEvents);
-      } catch (error) {
-        console.error("Erreur lors du chargement des événements :", error);
-      }
-    };
-
-    fetchEvents();
-  }, []);
-
   return (
     <div className="home-page">
-      {/* Créer une navbar responsive avec tous ce qu'il faut */}
-      <EventCard events={events} />
+      <h1 className="text-3xl text-center text-test-100">Bienvenue sur Event'Go</h1>
+      <p className="text-center text-test-100">
+        Le site pour trouver les événements qui vous correspondent
+      </p>
     </div>
   );
 };

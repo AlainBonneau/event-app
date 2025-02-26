@@ -1,11 +1,13 @@
 import { Route, Routes } from "react-router";
 // Importer les pages une fois qu'elles sont créées
 import Home from "../pages/Home";
+import EventPage from "../pages/Event";
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/events" element={<EventPage />} />
       {/* <Route path="/events" element={<Events />} />
         <Route path="/events/:id" element={<Event />} />
         <Route path="/events/:id/edit" element={<EventEdit />} />

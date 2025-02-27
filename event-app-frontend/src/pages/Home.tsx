@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
+import About from "../components/About";
 
 const Home = () => {
   return (
-    <main className="home-page">
+    <main className="home-page max-w-[100vw] overflow-x-hidden">
       <section
         style={{ backgroundImage: "url('/images/bg.jpg')" }}
         className="h-screen flex flex-col justify-center items-center text-center bg-cover bg-center bg-no-repeat"
@@ -48,12 +49,15 @@ const Home = () => {
                hover:bg-orange-500 hover:border-orange-500 
                active:scale-95 active:bg-orange-600 
                focus:outline-none focus:ring-2 focus:ring-orange-300"
-              href="/more"
+              href="#aboutSection"
             >
               Voir plus
             </a>
           </motion.div>
         </div>
+      </section>
+      <section id="aboutSection" className="about-section">
+        <About />
       </section>
     </main>
   );

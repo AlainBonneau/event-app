@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router";
 import Home from "../pages/Home";
 import EventPage from "../pages/Event";
 import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 const AppRoutes = () => {
   return (
@@ -10,8 +11,8 @@ const AppRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/events" element={<EventPage />} />
       <Route path="/login" element={<Login />} />
-      {/* <Route path="/events/:id" element={<Event />} />
-        <Route path="/events/:id/edit" element={<EventEdit />} />
+      <Route path="/register" element={<Register />} />
+      {/* <Route path="/events/:id/edit" element={<EventEdit />} />
         <Route path="/events/new" element={<EventNew />} />
         <Route path="*" element={<NotFound />} /> */}
     </Routes>

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axiosConfig";
@@ -19,10 +19,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await api.post(
-        "users/login",
-        formData
-      );
+      const response = await api.post("users/login", formData);
       const token = response.data.token;
 
       auth?.login(token);
@@ -32,6 +29,13 @@ const Login = () => {
       setError("Email ou mot de passe incorrect.");
     }
   };
+
+  const isAuth = auth?.token;
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/");
+    }
+  }, [isAuth, navigate]);
 
   return (
     <section className="bg-gray-100 py-20 dark:bg-dark flex items-center justify-center min-h-screen">

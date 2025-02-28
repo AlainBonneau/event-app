@@ -48,7 +48,7 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const verifyPassword = bcrypt.compare(password, user.password);
+    const verifyPassword = await bcrypt.compare(password, user.password);
     if (!verifyPassword) {
       res.status(401).json({ message: "Mauvais mot de passe" });
       return;

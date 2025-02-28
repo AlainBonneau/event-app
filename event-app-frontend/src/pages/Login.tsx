@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api/axiosConfig";
 
 const Login = () => {
   const auth = useContext(AuthContext);
@@ -19,8 +19,8 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:5002/api/users/login",
+      const response = await api.post(
+        "users/login",
         formData
       );
       const token = response.data.token;

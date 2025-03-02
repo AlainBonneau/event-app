@@ -23,12 +23,12 @@ const EventPage = () => {
     };
 
     fetchEvents();
-  }, []);
+  }, [events]);
 
   return (
     <div className="EventPage-page">
-      {/* Créer une navbar responsive avec tous ce qu'il faut */}
-      <EventCard events={events} />
+      <h1 className="pt-18 text-center text-4xl">Événements</h1>
+      {/* <EventCard events={events} /> */}
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router";
 // Importer les pages une fois qu'elles sont créées
 import Home from "../pages/Home";
 import EventPage from "../pages/Event";
+import EventDetail from "../pages/EventDetail";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 
@@ -12,8 +13,8 @@ const AppRoutes = () => {
       <Route path="/events" element={<EventPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      {/* <Route path="/events/:id/edit" element={<EventEdit />} />
-        <Route path="/events/new" element={<EventNew />} />
+      <Route path="/events/:id" element={<EventDetail />} />
+      {/* <Route path="/events/new" element={<EventNew />} />
         <Route path="*" element={<NotFound />} /> */}
     </Routes>
   );

@@ -23,7 +23,7 @@ const EventPage = () => {
     };
 
     fetchEvents();
-  }, [events]);
+  }, []);
 
   return (
     <div className="EventPage-page">

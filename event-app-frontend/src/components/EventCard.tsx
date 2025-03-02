@@ -54,12 +54,13 @@ const EventCard: React.FC<EventCardProps> = ({ events }) => {
               </p>
 
               {/* Bouton S'inscrire */}
-              <button
-                className="mt-4 w-full bg-primary text-white font-semibold py-2 px-4 rounded-md shadow-md 
+              <a
+                href={`/events/${event.id}`}
+                className=" block text-center mt-4 w-full bg-primary text-white font-semibold py-2 px-4 rounded-md shadow-md 
                 transition-all duration-300 hover:bg-blue-600 active:scale-95 cursor-pointer"
               >
                 S'inscrire
-              </button>
+              </a>
             </div>
           ))
         ) : (

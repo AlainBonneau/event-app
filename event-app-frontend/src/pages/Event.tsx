@@ -28,7 +28,7 @@ const EventPage = () => {
   return (
     <div className="EventPage-page">
       <h1 className="pt-18 text-center text-4xl">Événements</h1>
-      {/* <EventCard events={events} /> */}
+      <EventCard events={events} />
     </div>
   );
 };

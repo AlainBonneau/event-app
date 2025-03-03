@@ -2,7 +2,8 @@ import { createContext, useState, ReactNode } from "react";
 
 type AuthContextType = {
   token: string | null;
-  login: (token: string) => void;
+  userId: number | null;
+  login: (token: string, userId: number) => void;
   logout: () => void;
 };
 
@@ -14,18 +15,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.getItem("token")
   );
 
-  const login = (newToken: string) => {
+  const [userId, setUserId] = useState<number | null>(
+    localStorage.getItem("userId")
+      ? Number(localStorage.getItem("userId"))
+      : null
+  );
+
+  const login = (newToken: string, newUserId: number) => {
     setToken(newToken);
+    setUserId(newUserId);
     localStorage.setItem("token", newToken);
+    localStorage.setItem("userId", newUserId.toString()); // 🔹 On stocke l'ID
   };
 
   const logout = () => {
     setToken(null);
+    setUserId(null);
     localStorage.removeItem("token");
+    localStorage.removeItem("userId"); // 🔹 Suppression de l'ID après déconnexion
   };
 
   return (
-    <AuthContext.Provider value={{ token, login, logout }}>
+    <AuthContext.Provider value={{ token, userId, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

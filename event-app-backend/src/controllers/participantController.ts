@@ -6,7 +6,7 @@ export const registerToEvent = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { userId, eventId } = req.body;
+    const { userId, eventId } = req.body; // ✅ Bien récupérer depuis req.body
     const user = await User.findByPk(userId);
     const event = await Event.findByPk(eventId);
 
@@ -20,9 +20,7 @@ export const registerToEvent = async (
     const participantCount = await Participant.count({ where: { eventId } });
 
     if (participantCount >= event.maxParticipants) {
-      res.status(403).json({
-        message: "L'événement a atteint son nombre maximum de participants",
-      });
+      res.status(403).json({ message: "L'événement est complet." });
       return;
     }
 
@@ -31,17 +29,15 @@ export const registerToEvent = async (
     });
 
     if (userAlreadyParticipant) {
-      res.status(409).json({ message: "Utilisateur déjà inscrit" });
+      res.status(409).json({ message: "Vous êtes déjà inscrit." });
       return;
     }
 
     await Participant.create({ userId, eventId });
 
-    res.status(201).json({ message: "Utilisateur inscrit avec succès" });
+    res.status(201).json({ message: "Inscription réussie !" });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Erreur lors de l'inscription à l'événement", error });
+    res.status(500).json({ message: "Erreur lors de l'inscription", error });
   }
 };
 

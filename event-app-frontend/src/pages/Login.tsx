@@ -21,8 +21,10 @@ const Login = () => {
     try {
       const response = await api.post("users/login", formData);
       const token = response.data.token;
+      const userId = response.data.userId; // 🔹 Vérifie que ton backend envoie bien `userId`
 
-      auth?.login(token);
+      auth?.login(token, userId);
+      localStorage.setItem("userId", userId.toString()); // 🔹 Ajouté pour stocker l'ID
       navigate("/");
     } catch (e) {
       console.error(e);

@@ -2,39 +2,46 @@ import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
-import { where } from "sequelize";
 
 export const registerUser = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
+    console.log("Données reçues:", req.body); // 🔹 Ajoute ceci pour voir la requête
+
     const { email, password } = req.body;
 
-    const existingUser = await User.findOne({ where: { email } });
-    if (existingUser) {
-      res.status(400).json({ message: "Cet utilisateur existe déjà." });
+    if (!email || !password) {
+      res.status(400).json({ message: "Tous les champs sont obligatoires." });
       return;
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      res.status(400).json({ message: "Cet email est déjà utilisé." });
+      return;
+    }
 
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
       email,
       password: hashedPassword,
       role: "participant",
     });
 
+    const token = jwt.sign(
+      { id: newUser.id, email },
+      process.env.JWT_SECRET as string,
+      { expiresIn: "2h" }
+    );
+
     res
       .status(201)
-      .json({ message: "Utilisateur créer avec succès", user: newUser });
+      .json({ message: "Inscription réussie", token, userId: newUser.id });
   } catch (error) {
-    res.status(500).json({
-      message: "Erreur survenu lors de la création de l'utilisateur",
-      error,
-    });
-    return;
+    console.error("Erreur lors de l'inscription:", error);
+    res.status(500).json({ message: "Erreur serveur", error });
   }
 };
 
@@ -59,7 +66,9 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
       process.env.JWT_SECRET as string,
       { expiresIn: "2h" }
     );
-    res.status(200).json({ message: "Connexion réussie", token });
+    res
+      .status(200)
+      .json({ message: "Connexion réussie", token, userId: user.id });
   } catch (error) {
     res
       .status(500)

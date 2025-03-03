@@ -1,7 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import api from "../api/axiosConfig";
 import axios from "axios";
+import { AuthContext } from "../context/AuthContext";
 
 interface Event {
   id: number;
@@ -15,23 +16,17 @@ interface Event {
 }
 
 const EventDetail = () => {
-    const auth = useContext(AuthContext);
-  const { id } = useParams<{ id: string }>(); // Récupère l'ID de l'URL
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
   const [event, setEvent] = useState<Event | null>(null);
   const [loading, setLoading] = useState(true);
-
-  const isAuth = auth?.token;
-  if (!isAuth) {
-    navigate("/login");
-  }
+  const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5002/api/events/${id}`
-        );
+        const response = await api.get(`events/${id}`);
         setEvent(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération de l'événement :", error);
@@ -43,15 +38,39 @@ const EventDetail = () => {
     fetchEvent();
   }, [id]);
 
-  if (loading) {
-    return <div className="text-center text-gray-600">Chargement...</div>;
-  }
+  const handleRegister = async () => {
+    if (!auth?.token || !auth.userId) {
+      setMessage("Vous devez être connecté pour vous inscrire.");
+      return;
+    }
 
-  if (!event) {
+    try {
+      const response = await api.post(
+        `participants`,
+        { eventId: event?.id, userId: auth.userId },
+        {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        }
+      );
+
+      setMessage(response.data.message);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setMessage(
+          error.response?.data?.message || "Erreur lors de l'inscription."
+        );
+      } else {
+        setMessage("Erreur lors de l'inscription.");
+      }
+    }
+  };
+
+  if (loading)
+    return <div className="text-center text-gray-600">Chargement...</div>;
+  if (!event)
     return (
       <div className="text-center text-red-500">Événement introuvable.</div>
     );
-  }
 
   return (
     <div className="container mx-auto p-6">
@@ -93,8 +112,12 @@ const EventDetail = () => {
           👥 {event.maxParticipants} Participants max
         </p>
 
+        {/* Message d'inscription */}
+        {message && <p className="text-center text-red-500 mt-2">{message}</p>}
+
         {/* Bouton S'inscrire */}
         <button
+          onClick={handleRegister}
           className="mt-6 w-full bg-primary text-white font-semibold py-3 px-6 rounded-md shadow-md 
           transition-all duration-300 hover:bg-blue-600 active:scale-95"
         >

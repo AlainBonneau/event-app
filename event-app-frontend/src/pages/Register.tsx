@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axiosConfig";
+import axios from "axios";
 
 const Register = () => {
   const auth = useContext(AuthContext);
@@ -22,23 +23,31 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (formData.password !== formData.passwordConfirm) {
-      setError("Les mots de passe ne correspondent pas.");
-      return;
-    }
+    console.log("Données envoyées:", formData); // 🔹 Vérifie les données envoyées
 
     try {
-      const response = await api.post("users/register", {
-        email: formData.email,
-        password: formData.password,
-      });
-      const token = response.data.token;
+      const response = await api.post("users/register", formData);
+      console.log("Réponse API:", response.data);
 
-      auth?.login(token);
-      navigate("/login");
-    } catch (e) {
-      console.error(e);
-      setError("Une erreur est survenue.");
+      const token = response.data.token;
+      const userId = response.data.userId;
+
+      if (!token || !userId) {
+        setError("Erreur: Token ou ID utilisateur manquant.");
+        return;
+      }
+
+      auth?.login(token, userId);
+      navigate("/");
+    } catch (error) {
+      console.error("Erreur Axios:", error);
+      if (axios.isAxiosError(error)) {
+        setError(
+          error.response?.data?.message || "Erreur lors de l'inscription."
+        );
+      } else {
+        setError("Erreur lors de l'inscription.");
+      }
     }
   };
 

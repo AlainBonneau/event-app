@@ -139,3 +139,41 @@ export const countParticipantsByEvent = async (
       .json({ message: "Erreur lors du comptage des participants", error });
   }
 };
+
+export const unregisterFromEvent = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { userId, eventId } = req.body;
+    const user = await User.findByPk(userId);
+    const event = await Event.findByPk(eventId);
+
+    if (!user || !event) {
+      res
+        .status(404)
+        .json({ message: "Utilisateur et/ou événement introuvable" });
+      return;
+    }
+
+    const participation = await Participant.findOne({
+      where: { userId, eventId },
+    });
+
+    if (!participation) {
+      res
+        .status(404)
+        .json({ message: "L'utilisateur n'est pas inscrit à cet événement" });
+      return;
+    }
+
+    await Participant.destroy({ where: { userId, eventId } });
+
+    res.status(200).json({ message: "Désinscription réussie" });
+  } catch (error) {
+    console.error("Erreur lors de la désinscription :", error);
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la désinscription", error });
+  }
+};

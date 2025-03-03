@@ -65,6 +65,30 @@ const EventDetail = () => {
     }
   };
 
+  const handleUnregister = async () => {
+    if (!auth?.token || !auth.userId) {
+      setMessage("Vous devez être connecté pour vous désinscrire.");
+      return;
+    }
+
+    try {
+      const response = await api.delete(`participants`, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+        data: { eventId: event?.id, userId: auth.userId },
+      });
+
+      setMessage(response.data.message);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setMessage(
+          error.response?.data?.message || "Erreur lors de la désinscription."
+        );
+      } else {
+        setMessage("Erreur lors de la désinscription.");
+      }
+    }
+  };
+
   if (loading)
     return <div className="text-center text-gray-600">Chargement...</div>;
   if (!event)
@@ -122,6 +146,14 @@ const EventDetail = () => {
           transition-all duration-300 hover:bg-blue-600 active:scale-95"
         >
           S'inscrire à cet événement
+        </button>
+        {/* Bouton Se désinscrire */}
+        <button
+          onClick={handleUnregister}
+          className="mt-4 w-full bg-red-500 text-white font-semibold py-3 px-6 rounded-md shadow-md 
+  transition-all duration-300 hover:bg-red-600 active:scale-95"
+        >
+          Se désinscrire
         </button>
       </div>
     </div>

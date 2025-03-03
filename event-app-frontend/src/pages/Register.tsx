@@ -23,7 +23,7 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("Données envoyées:", formData); // 🔹 Vérifie les données envoyées
+    console.log("Données envoyées:", formData);
 
     try {
       const response = await api.post("users/register", formData);

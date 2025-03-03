@@ -8,7 +8,7 @@ export const registerUser = async (
   res: Response
 ): Promise<void> => {
   try {
-    console.log("Données reçues:", req.body); // 🔹 Ajoute ceci pour voir la requête
+    console.log("Données reçues:", req.body);
 
     const { email, password } = req.body;
 

@@ -25,14 +25,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setToken(newToken);
     setUserId(newUserId);
     localStorage.setItem("token", newToken);
-    localStorage.setItem("userId", newUserId.toString()); // 🔹 On stocke l'ID
+    localStorage.setItem("userId", newUserId.toString());
   };
 
   const logout = () => {
     setToken(null);
     setUserId(null);
     localStorage.removeItem("token");
-    localStorage.removeItem("userId"); // 🔹 Suppression de l'ID après déconnexion
+    localStorage.removeItem("userId");
   };
 
   return (

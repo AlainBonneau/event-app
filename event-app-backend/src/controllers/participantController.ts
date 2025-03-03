@@ -6,7 +6,7 @@ export const registerToEvent = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { userId, eventId } = req.body; // ✅ Bien récupérer depuis req.body
+    const { userId, eventId } = req.body;
     const user = await User.findByPk(userId);
     const event = await Event.findByPk(eventId);
 

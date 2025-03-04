@@ -5,10 +5,12 @@ import {
   getParticipantByEvent,
   countParticipantsByEvent,
   unregisterFromEvent,
+  checkParticipation,
 } from "../controllers/participantController";
 
 const router = express.Router();
 
+router.get("/check", checkParticipation);
 router.get("/:id", getParticipantByEvent);
 router.get("/count/:eventId", countParticipantsByEvent);
 router.post("/", registerToEvent);

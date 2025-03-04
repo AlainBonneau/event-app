@@ -177,3 +177,30 @@ export const unregisterFromEvent = async (
       .json({ message: "Erreur lors de la désinscription", error });
   }
 };
+
+export const checkParticipation = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const userId = parseInt(req.query.userId as string, 10);
+    const eventId = parseInt(req.query.eventId as string, 10);
+
+    if (isNaN(userId) || isNaN(eventId)) {
+      res.status(400).json({ message: "Données invalides" });
+      return;
+    }
+
+    const isParticipating = await Participant.findOne({
+      where: { userId, eventId },
+    });
+
+    res.status(200).json({ isParticipating: !!isParticipating });
+  } catch (error) {
+    console.error(
+      "Erreur lors de la vérification de la participation :",
+      error
+    );
+    res.status(500).json({ message: "Erreur serveur", error });
+  }
+};

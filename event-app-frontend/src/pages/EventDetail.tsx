@@ -22,6 +22,7 @@ const EventDetail = () => {
   const [event, setEvent] = useState<Event | null>(null);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState<string | null>(null);
+  const [isParticipated, setIsParticipated] = useState<boolean>(false); // L'utilisateur est-il inscrit à l'événement ?
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -37,6 +38,32 @@ const EventDetail = () => {
 
     fetchEvent();
   }, [id]);
+
+  useEffect(() => {
+    const checkParticipation = async () => {
+      if (!auth?.token || !auth.userId || !id) return;
+
+      const eventId = parseInt(id, 10); // Convertit en nombre
+      console.log("Vérification → userId:", auth.userId, "eventId:", eventId);
+
+      try {
+        const response = await api.get(`participants/check`, {
+          params: { userId: auth.userId, eventId },
+          headers: { Authorization: `Bearer ${auth.token}` },
+        });
+
+        console.log("Réponse de l'API :", response.data);
+        setIsParticipated(response.data.isParticipating);
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération de la participation :",
+          error
+        );
+      }
+    };
+
+    checkParticipation();
+  }, [auth?.token, auth?.userId, id]);
 
   const handleRegister = async () => {
     if (!auth?.token || !auth.userId) {
@@ -54,6 +81,7 @@ const EventDetail = () => {
       );
 
       setMessage(response.data.message);
+      setIsParticipated(true);
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         setMessage(
@@ -78,6 +106,7 @@ const EventDetail = () => {
       });
 
       setMessage(response.data.message);
+      setIsParticipated(false);
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         setMessage(
@@ -111,10 +140,8 @@ const EventDetail = () => {
         <span className="bg-secondary text-white text-sm font-bold px-3 py-1 rounded-full">
           {event.category}
         </span>
-
         {/* Titre */}
         <h1 className="text-3xl font-bold text-primary mt-4">{event.title}</h1>
-
         {/* Date & Lieu */}
         <p className="text-gray-600 dark:text-gray-400 mt-2 text-lg">
           📍 {event.location} | 📅{" "}
@@ -125,36 +152,45 @@ const EventDetail = () => {
             day: "numeric",
           })}
         </p>
-
         {/* Description */}
         <p className="text-gray-700 dark:text-gray-300 mt-4">
           {event.description}
         </p>
-
         {/* Participants */}
         <p className="text-gray-700 dark:text-gray-400 mt-2 text-lg font-semibold">
           👥 {event.maxParticipants} Participants max
         </p>
+        {/* L'utilisateur est il inscrit ? */}
+        {isParticipated ? (
+          <p className="text-green-500">Vous êtes inscrit à cet événement</p>
+        ) : (
+          <p className="text-red-500">
+            Vous n'êtes pas inscrit à cet événement
+          </p>
+        )}
 
+        {/* Message d'inscription */}
         {/* Message d'inscription */}
         {message && <p className="text-center text-red-500 mt-2">{message}</p>}
 
-        {/* Bouton S'inscrire */}
-        <button
-          onClick={handleRegister}
-          className="mt-6 w-full bg-primary text-white font-semibold py-3 px-6 rounded-md shadow-md 
-          transition-all duration-300 hover:bg-blue-600 active:scale-95"
-        >
-          S'inscrire à cet événement
-        </button>
-        {/* Bouton Se désinscrire */}
-        <button
-          onClick={handleUnregister}
-          className="mt-4 w-full bg-red-500 text-white font-semibold py-3 px-6 rounded-md shadow-md 
-  transition-all duration-300 hover:bg-red-600 active:scale-95"
-        >
-          Se désinscrire
-        </button>
+        {/* Affichage conditionnel des boutons */}
+        {isParticipated ? (
+          <button
+            onClick={handleUnregister}
+            className="mt-4 w-full bg-red-500 text-white font-semibold py-3 px-6 rounded-md shadow-md 
+    transition-all duration-300 hover:bg-red-600 active:scale-95"
+          >
+            Se désinscrire
+          </button>
+        ) : (
+          <button
+            onClick={handleRegister}
+            className="mt-6 w-full bg-primary text-white font-semibold py-3 px-6 rounded-md shadow-md 
+    transition-all duration-300 hover:bg-blue-600 active:scale-95"
+          >
+            S'inscrire
+          </button>
+        )}
       </div>
     </div>
   );

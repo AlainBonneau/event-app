@@ -5,6 +5,7 @@ import EventPage from "../pages/Event";
 import EventDetail from "../pages/EventDetail";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Profile from "../pages/Profile";
 
 const AppRoutes = () => {
   return (
@@ -14,8 +15,8 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/events/:id" element={<EventDetail />} />
-      {/* <Route path="/events/new" element={<EventNew />} />
-        <Route path="*" element={<NotFound />} /> */}
+      <Route path="/profile" element={<Profile />} />
+      {/* <Route path="*" element={<NotFound />} /> */}
     </Routes>
   );
 };

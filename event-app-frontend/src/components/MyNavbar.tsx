@@ -11,6 +11,7 @@ import {
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import avatarIcon from "../user.png";
 
 const navigation = [
   { name: "Accueil", href: "/" },
@@ -30,7 +31,10 @@ export default function MyNavbar() {
 
   return (
     <header>
-      <Disclosure as="nav" className="bg-gray-800 fixed top-0 left-0 w-full z-50">
+      <Disclosure
+        as="nav"
+        className="bg-gray-800 fixed top-0 left-0 w-full z-50"
+      >
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -84,7 +88,7 @@ export default function MyNavbar() {
                     <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-none">
                       <img
                         alt="Profil"
-                        src=".\images\user.png"
+                        src={avatarIcon}
                         className="size-8 rounded-full"
                       />
                     </MenuButton>

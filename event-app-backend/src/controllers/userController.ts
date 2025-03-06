@@ -10,9 +10,9 @@ export const registerUser = async (
   try {
     console.log("Données reçues:", req.body);
 
-    const { email, password } = req.body;
+    const { email, lastname, firstname, password } = req.body;
 
-    if (!email || !password) {
+    if (!email || !password || !lastname || !firstname) {
       res.status(400).json({ message: "Tous les champs sont obligatoires." });
       return;
     }
@@ -26,6 +26,8 @@ export const registerUser = async (
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
       email,
+      lastname,
+      firstname,
       password: hashedPassword,
       role: "participant",
     });
@@ -114,6 +116,8 @@ export const getCurrentUser = async (
     res.status(200).json({
       id: req.user?.id,
       email: req.user?.email,
+      lastname: req.user?.lastname,
+      firstname: req.user?.firstname,
       role: req.user?.role,
     });
   } catch (error) {
@@ -133,11 +137,24 @@ export const updateProfile = async (
       return;
     }
 
-    const { email, password } = req.body;
-    const updatedData: { email?: string; password?: string } = {};
+    const { email, password, lastname, firstname } = req.body;
+    const updatedData: {
+      email?: string;
+      password?: string;
+      lastname?: string;
+      firstname?: string;
+    } = {};
 
     if (email) {
       updatedData.email = email;
+    }
+
+    if (lastname) {
+      updatedData.lastname = lastname;
+    }
+
+    if (firstname) {
+      updatedData.firstname = firstname;
     }
 
     if (password) {
@@ -152,6 +169,8 @@ export const updateProfile = async (
       user: {
         id: req.user.id,
         email: email || req.user.email,
+        lastname: lastname || req.user.lastname,
+        firstname: firstname || req.user.firstname,
         role: req.user.role,
       },
     });

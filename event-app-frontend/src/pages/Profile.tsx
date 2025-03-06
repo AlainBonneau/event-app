@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 interface User {
   id: number;
   email: string;
+  lastname: string;
+  firstname: string;
   role: string;
   createdAt: string;
 }
@@ -66,6 +68,15 @@ const Profile = () => {
           Rôle :{" "}
           <span className="font-semibold text-secondary">
             {user.role.toUpperCase()}
+          </span>
+        </p>
+        {/* <p className="text-gray-700 dark:text-gray-300 mt-4">
+        {user.firstname} {user.lastname}
+        </p> */}
+        <p className="text-gray-600 dark:text-gray-400 text-lg">
+          Prénom / Nom :{" "}
+          <span className="text-gray-700 dark:text-gray-300 mt-4">
+            {user.firstname} {user.lastname}
           </span>
         </p>
         <p className="text-gray-700 dark:text-gray-300 mt-4">

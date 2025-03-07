@@ -18,8 +18,10 @@ const Profile = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isEditing, setIsEditing] = useState(false); // TODO: Gérer l'édition du profil
+  const [isEditing, setIsEditing] = useState(false);
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+
   useEffect(() => {
     const fetchUserProfile = async () => {
       if (!auth?.token || !auth.userId) {
@@ -31,6 +33,8 @@ const Profile = () => {
           headers: { Authorization: `Bearer ${auth.token}` },
         });
         setUser(response.data);
+        setFirstname(response.data.firstname);
+        setLastname(response.data.lastname);
       } catch (error) {
         console.error("Erreur lors de la récupération du profil :", error);
       } finally {
@@ -40,6 +44,28 @@ const Profile = () => {
 
     fetchUserProfile();
   }, [auth?.token, auth?.userId, navigate]);
+
+  const handleEditProfile = async () => {
+    if (isEditing) {
+      try {
+        const updatedUser = {
+          firstname,
+          lastname,
+        };
+
+        await api.put(`/users/me/update/`, updatedUser, {
+          headers: { Authorization: `Bearer ${auth?.token}` },
+        });
+
+        setUser((prevUser) =>
+          prevUser ? { ...prevUser, ...updatedUser } : null
+        );
+      } catch (error) {
+        console.error("Erreur lors de la mise à jour du profil :", error);
+      }
+    }
+    setIsEditing(!isEditing);
+  };
 
   if (loading) {
     return <div className="text-center text-gray-600">Chargement...</div>;
@@ -93,10 +119,16 @@ const Profile = () => {
                 </span>
                 <input
                   type="text"
-                  value={user.firstname}
-                  disabled
+                  value={firstname}
+                  onChange={(e) => setFirstname(e.target.value)}
+                  placeholder="Nouveau prénom"
+                  disabled={!isEditing}
                   name="firstname"
-                  className="w-full mt-1 p-3 border rounded-lg shadow-sm"
+                  className={`w-full mt-1 p-3 border rounded-lg shadow-sm ${
+                    isEditing
+                      ? "bg-white dark:bg-gray-600"
+                      : "bg-gray-100 dark:bg-gray-700"
+                  }`}
                 />
               </label>
             </div>
@@ -107,9 +139,15 @@ const Profile = () => {
                 <input
                   type="text"
                   name="lastname"
-                  value={user.lastname}
-                  disabled
-                  className="w-full mt-1 p-3 border rounded-lg shadow-sm"
+                  value={lastname}
+                  onChange={(e) => setLastname(e.target.value)}
+                  placeholder="Nouveau nom"
+                  disabled={!isEditing}
+                  className={`w-full mt-1 p-3 border rounded-lg shadow-sm ${
+                    isEditing
+                      ? "bg-white dark:bg-gray-600"
+                      : "bg-gray-100 dark:bg-gray-700"
+                  }`}
                 />
               </label>
 
@@ -126,7 +164,7 @@ const Profile = () => {
             </div>
           </div>
 
-          <p className="text-gray-600 dark:text-gray-400 text-sm mt-4">
+          <p className="text-gray-600 dark:text-gray-400 text-sm mt-4 text-center">
             Inscrit depuis le{" "}
             <span className="font-semibold">
               {new Date(user.createdAt).toLocaleDateString("fr-FR", {
@@ -140,8 +178,11 @@ const Profile = () => {
 
         {/* Boutons */}
         <div className="flex justify-center gap-4 mt-8">
-          <button className="px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105 shadow-lg">
-            Modifier le profil
+          <button
+            className="px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105 shadow-lg"
+            onClick={handleEditProfile}
+          >
+            {isEditing ? "Confirmer" : "Modifier le profil"}
           </button>
           <button
             className="px-6 py-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition-transform transform hover:scale-105 shadow-lg"

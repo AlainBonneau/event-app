@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import api from "../api/axiosConfig";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router";
@@ -18,6 +18,12 @@ const CreateEvent: React.FC = () => {
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (auth?.role !== "admin" && auth?.role !== "organisateur") {
+      navigate("/login");
+    }
+  }, [auth?.role, navigate]);
 
   // Fonction pour gérer les changements des inputs
   const handleChange = (

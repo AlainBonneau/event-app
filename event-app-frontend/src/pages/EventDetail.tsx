@@ -171,7 +171,7 @@ const EventDetail = () => {
           <span className="bg-secondary text-white text-sm font-bold px-3 py-1 rounded-full">
             {event.category}
           </span>
-          {auth?.token && (
+          {auth?.role === "admin" && (
             <button
               onClick={handleConfirmDelete}
               className="px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105 shadow-lg"

@@ -45,7 +45,7 @@ const EventDetail = () => {
     const checkParticipation = async () => {
       if (!auth?.token || !auth.userId || !id) return;
 
-      const eventId = parseInt(id, 10); // Convertit en nombre
+      const eventId = parseInt(id, 10);
       console.log("Vérification → userId:", auth.userId, "eventId:", eventId);
 
       try {
@@ -132,19 +132,17 @@ const EventDetail = () => {
       });
 
       setMessage("Événement supprimé avec succès !");
-      navigate("/events"); // Redirige après suppression
+      navigate("/events");
     } catch (error) {
       console.error("Erreur lors de la suppression de l'événement :", error);
       setMessage("Erreur lors de la suppression.");
     }
   };
 
-  // 👉 Fonction pour ouvrir la modale avant suppression
   const handleConfirmDelete = () => {
     setIsModalOpen(true);
   };
 
-  // 👉 Fonction pour fermer la modale sans supprimer
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -210,7 +208,6 @@ const EventDetail = () => {
         )}
 
         {/* Message d'inscription */}
-        {/* Message d'inscription */}
         {message && <p className="text-center text-red-500 mt-2">{message}</p>}
 
         {/* Affichage conditionnel des boutons */}
@@ -235,7 +232,7 @@ const EventDetail = () => {
       <MyModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        onConfirm={handleDelete} // Supprime l'événement après confirmation
+        onConfirm={handleDelete}
         title="Confirmer la suppression"
         description="Êtes-vous sûr de vouloir supprimer cet événement ? Cette action est irréversible."
       />

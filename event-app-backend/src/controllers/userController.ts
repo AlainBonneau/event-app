@@ -64,13 +64,13 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
     }
 
     const token = jwt.sign(
-      { id: user.id, email: user.email },
+      { id: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET as string,
       { expiresIn: "2h" }
     );
     res
       .status(200)
-      .json({ message: "Connexion réussie", token, userId: user.id });
+      .json({ message: "Connexion réussie", token, userId: user.id, role: user.role });
   } catch (error) {
     res
       .status(500)

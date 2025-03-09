@@ -22,8 +22,9 @@ const Login = () => {
       const response = await api.post("users/login", formData);
       const token = response.data.token;
       const userId = response.data.userId;
+      const role = response.data.role;
 
-      auth?.login(token, userId);
+      auth?.login(token, userId, role);
       localStorage.setItem("userId", userId.toString());
       navigate("/");
     } catch (e) {

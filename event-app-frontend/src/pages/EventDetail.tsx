@@ -147,6 +147,8 @@ const EventDetail = () => {
     setIsModalOpen(false);
   };
 
+  console.log("role:", auth?.role);
+
   if (loading)
     return <div className="text-center text-gray-600">Chargement...</div>;
   if (!event)

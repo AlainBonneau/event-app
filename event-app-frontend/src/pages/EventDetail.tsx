@@ -21,7 +21,7 @@ const EventDetail = () => {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
   const [event, setEvent] = useState<Event | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [message, setMessage] = useState<string | null>(null);
   const [isParticipated, setIsParticipated] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);

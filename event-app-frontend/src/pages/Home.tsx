@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import About from "../components/About";
+import Presentation from "../components/Presentation";
 
 const Home = () => {
   return (
@@ -58,6 +59,9 @@ const Home = () => {
       </section>
       <section id="aboutSection" className="about-section">
         <About />
+      </section>
+      <section className="presentation-section">
+        <Presentation />
       </section>
     </main>
   );

@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../models";
+import { log } from "console";
 
 export const isAuthenticated = async (
   req: Request,
@@ -26,7 +27,6 @@ export const isAuthenticated = async (
       res.status(401).json({ message: "Utilisateur non trouvé" });
       return;
     }
-
     req.user = user;
     next();
   } catch (error) {

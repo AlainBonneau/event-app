@@ -118,6 +118,25 @@ const EventDetail = () => {
     }
   };
 
+  const handleDelete = async () => {
+    if (!auth?.token) {
+      setMessage("Vous devez être connecté en tant qu'admin.");
+      return;
+    }
+
+    try {
+      await api.delete(`/events/${event?.id}`, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      });
+
+      setMessage("Événement supprimé avec succès !");
+      navigate("/events"); // Redirige après suppression
+    } catch (error) {
+      console.error("Erreur lors de la suppression de l'événement :", error);
+      setMessage("Erreur lors de la suppression.");
+    }
+  };
+
   if (loading)
     return <div className="text-center text-gray-600">Chargement...</div>;
   if (!event)
@@ -137,9 +156,17 @@ const EventDetail = () => {
 
       <div className="bg-white dark:bg-dark-2 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-8">
         {/* Catégorie */}
-        <span className="bg-secondary text-white text-sm font-bold px-3 py-1 rounded-full">
-          {event.category}
-        </span>
+        <div className="flex items-center justify-between">
+          <span className="bg-secondary text-white text-sm font-bold px-3 py-1 rounded-full">
+            {event.category}
+          </span>
+          <button
+            onClick={handleDelete}
+            className="px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105 shadow-lg"
+          >
+            x
+          </button>
+        </div>
         {/* Titre */}
         <h1 className="text-3xl font-bold text-primary mt-4">{event.title}</h1>
         {/* Date & Lieu */}

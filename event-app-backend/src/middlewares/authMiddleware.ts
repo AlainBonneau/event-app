@@ -7,8 +7,6 @@ export const isAdmin = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    console.log("🔍 Vérification de req.user:", req.user); // 👈 Ajout du log
-
     const userId = req.user?.id;
 
     if (!userId) {

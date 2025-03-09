@@ -15,6 +15,6 @@ router.get("/", getAllEvents);
 router.get("/:id", getEventById);
 router.put("/:id", isAdmin, updateEvent);
 router.post("/", isAuthenticated, isAdmin, createEvent);
-router.delete("/:id", isAdmin, deleteEvent);
+router.delete("/:id", isAuthenticated, isAdmin, deleteEvent);
 
 export default router;

@@ -136,7 +136,7 @@ export const deleteEvent = async (
   res: Response
 ): Promise<void> => {
   try {
-    const eventId = parseInt(req.params.id);
+    const eventId = parseInt(req.params.id, 10);
 
     if (isNaN(eventId)) {
       res.status(400).json({ message: "ID d'événement invalide" });

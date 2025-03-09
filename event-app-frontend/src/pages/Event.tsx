@@ -32,16 +32,17 @@ const EventPage = () => {
   return (
     <div className="EventPage-page">
       <h1 className="pt-18 text-center text-4xl">Événements</h1>
-    {auth?.token && (
-              <div className="btn-container flex items-center justify-end pr-4">
-              <button
-                className="px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105 shadow-lg "
-                onClick={() => navigate("/create-event")}
-              >
-                +
-              </button>
-            </div>
-    )}
+      {auth?.role === "admin" ||
+        (auth?.role === "organisateur" && (
+          <div className="btn-container flex items-center justify-end pr-4">
+            <button
+              className="px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105 shadow-lg "
+              onClick={() => navigate("/create-event")}
+            >
+              +
+            </button>
+          </div>
+        ))}
       <EventCard events={events} />
     </div>
   );

@@ -1,8 +1,9 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import api from "../api/axiosConfig";
 import axios from "axios";
-import { AuthContext } from "../context/AuthContext";
+import MyModal from "../components/MyModal";
 
 interface Event {
   id: number;
@@ -22,7 +23,8 @@ const EventDetail = () => {
   const [event, setEvent] = useState<Event | null>(null);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState<string | null>(null);
-  const [isParticipated, setIsParticipated] = useState<boolean>(false); // L'utilisateur est-il inscrit à l'événement ?
+  const [isParticipated, setIsParticipated] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -137,6 +139,16 @@ const EventDetail = () => {
     }
   };
 
+  // 👉 Fonction pour ouvrir la modale avant suppression
+  const handleConfirmDelete = () => {
+    setIsModalOpen(true);
+  };
+
+  // 👉 Fonction pour fermer la modale sans supprimer
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   if (loading)
     return <div className="text-center text-gray-600">Chargement...</div>;
   if (!event)
@@ -153,19 +165,20 @@ const EventDetail = () => {
       >
         ⬅ Retour
       </button>
-
       <div className="bg-white dark:bg-dark-2 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-8">
         {/* Catégorie */}
         <div className="flex items-center justify-between">
           <span className="bg-secondary text-white text-sm font-bold px-3 py-1 rounded-full">
             {event.category}
           </span>
-          <button
-            onClick={handleDelete}
-            className="px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105 shadow-lg"
-          >
-            x
-          </button>
+          {auth?.token && (
+            <button
+              onClick={handleConfirmDelete}
+              className="px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105 shadow-lg"
+            >
+              x
+            </button>
+          )}
         </div>
         {/* Titre */}
         <h1 className="text-3xl font-bold text-primary mt-4">{event.title}</h1>
@@ -219,6 +232,13 @@ const EventDetail = () => {
           </button>
         )}
       </div>
+      <MyModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleDelete} // Supprime l'événement après confirmation
+        title="Confirmer la suppression"
+        description="Êtes-vous sûr de vouloir supprimer cet événement ? Cette action est irréversible."
+      />
     </div>
   );
 };

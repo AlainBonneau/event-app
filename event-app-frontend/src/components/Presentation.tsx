@@ -9,14 +9,14 @@ const Presentation = () => {
                 <div className="w-full px-3 sm:px-4 xl:w-1/2">
                   <div className="py-3 sm:py-4">
                     <img
-                      src="https://i.ibb.co/gFb3ns6/image-1.jpg"
+                      src="./images/event3.jpg"
                       alt=""
                       className="w-full rounded-2xl"
                     />
                   </div>
                   <div className="py-3 sm:py-4">
                     <img
-                      src="https://i.ibb.co/rfHFq15/image-2.jpg"
+                      src="./images/event2.jpg"
                       alt=""
                       className="w-full rounded-2xl"
                     />
@@ -25,7 +25,7 @@ const Presentation = () => {
                 <div className="w-full px-3 sm:px-4 xl:w-1/2">
                   <div className="relative z-10 my-4">
                     <img
-                      src="https://i.ibb.co/9y7nYCD/image-3.jpg"
+                      src="./images/event1.jpg"
                       alt=""
                       className="w-full rounded-2xl"
                     />
@@ -610,7 +610,7 @@ const Presentation = () => {
                   Rejoindre des événements en ligne !
                 </span>
                 <h2 className="mb-5 text-3xl font-bold text-dark dark:text-white sm:text-[40px]/[48px]">
-                  Trouvez des événements en ligne et participez-y.
+                  Des événements en ligne, des expériences inoubliables !
                 </h2>
                 <p className="mb-5 text-base text-body-color dark:text-dark-6">
                   Trouvez des événements en ligne et participez-y. Découvrez des
@@ -619,9 +619,12 @@ const Presentation = () => {
                   l'inscription.
                 </p>
                 <p className="mb-8 text-base text-body-color dark:text-dark-6">
-                  Vous pourrez découvrir des événements en direct qui
-                  correspondent à vos intérêts ou créer les vôtres avec des
-                  outils faciles à utiliser pour gérer l'inscription.
+                  Découvrez, participez et créez des événements en ligne qui
+                  vous passionnent. Que ce soit pour apprendre, réseauter ou
+                  simplement s’amuser, rejoignez une communauté dynamique et
+                  plongez dans des expériences interactives en direct. Avec
+                  notre plateforme intuitive, l’inscription et l’organisation
+                  d’événements n’ont jamais été aussi simples.
                 </p>
                 <a
                   href="/events"

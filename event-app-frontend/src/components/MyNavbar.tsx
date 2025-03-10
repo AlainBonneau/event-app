@@ -17,7 +17,7 @@ const navigation = [
   { name: "Accueil", href: "/" },
   { name: "Evénements", href: "/events" },
   { name: "Projets", href: "/projects" },
-  { name: "Calendrier", href: "/calendar" },
+  { name: "Qui suis-je ?", href: "/about-me" },
 ];
 
 function classNames(...classes: string[]) {

@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Profile from "../pages/Profile";
 import CreateEvent from "../pages/CreateEvent";
+import AboutMe from "../pages/AboutMe";
 import NotFound from "../pages/NotFound";
 
 const AppRoutes = () => {
@@ -19,6 +20,7 @@ const AppRoutes = () => {
       <Route path="/events/:id" element={<EventDetail />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/create-event" element={<CreateEvent />} />
+      <Route path="/about-me" element={<AboutMe />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

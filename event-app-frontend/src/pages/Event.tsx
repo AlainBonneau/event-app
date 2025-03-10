@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router";
 import api from "../api/axiosConfig";
 import EventCard from "../components/EventCard";
-import { useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 
 const EventPage = () => {

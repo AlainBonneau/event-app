@@ -1,4 +1,5 @@
 import React from "react";
+import Spinner from "../components/Spinner";
 
 interface Event {
   id: number;
@@ -20,6 +21,13 @@ const EventCard: React.FC<EventCardProps> = ({ events }) => {
       <h1 className="text-3xl font-bold text-primary mb-6 text-center">
         Tous les événements
       </h1>
+      
+      {/* Spinner */}
+      <div className="spinner-container flex justify-center items-center">
+      {events.length === 0 && <Spinner />}
+      </div>
+
+      {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {events.length > 0 ? (
           events.map((event) => (

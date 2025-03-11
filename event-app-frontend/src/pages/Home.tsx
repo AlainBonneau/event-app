@@ -4,7 +4,7 @@ import Presentation from "../components/Presentation";
 
 const Home = () => {
   return (
-    <main className="home-page max-w-[100vw] overflow-x-hidden">
+    <div className="home-page max-w-[100vw] overflow-x-hidden">
       <section
         style={{ backgroundImage: "url('/images/bg.jpg')" }}
         className="h-screen flex flex-col justify-center items-center text-center bg-cover bg-center bg-no-repeat"
@@ -63,7 +63,7 @@ const Home = () => {
       <section className="presentation-section">
         <Presentation />
       </section>
-    </main>
+    </div>
   );
 };
 

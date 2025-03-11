@@ -9,7 +9,9 @@ const App = () => {
     <AuthProvider>
       <BrowserRouter>
         <MyNavbar />
-        <AppRoutes />
+        <main className="main-content flex-grow">
+          <AppRoutes />
+        </main>
         <Footer />
       </BrowserRouter>
     </AuthProvider>

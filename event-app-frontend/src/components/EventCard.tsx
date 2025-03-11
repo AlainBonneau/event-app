@@ -1,5 +1,6 @@
 import React from "react";
 import Spinner from "../components/Spinner";
+import BetaAlert from "./BetaAlert";
 
 interface Event {
   id: number;
@@ -21,10 +22,13 @@ const EventCard: React.FC<EventCardProps> = ({ events }) => {
       <h1 className="text-3xl font-bold text-primary mb-6 text-center">
         Tous les événements
       </h1>
-      
+
+      {/* BetaAlert */}
+      <BetaAlert />
+
       {/* Spinner */}
       <div className="spinner-container flex justify-center items-center">
-      {events.length === 0 && <Spinner />}
+        {events.length === 0 && <Spinner />}
       </div>
 
       {/* Grid */}

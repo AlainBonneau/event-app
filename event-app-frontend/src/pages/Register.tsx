@@ -33,13 +33,14 @@ const Register = () => {
 
       const token = response.data.token;
       const userId = response.data.userId;
+      const role = response.data.role;
 
       if (!token || !userId) {
         setError("Erreur: Token ou ID utilisateur manquant.");
         return;
       }
 
-      auth?.login(token, userId);
+      auth?.login(token, userId, role);
       navigate("/");
     } catch (error) {
       console.error("Erreur Axios:", error);

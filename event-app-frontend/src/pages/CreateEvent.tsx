@@ -13,7 +13,7 @@ const CreateEvent: React.FC = () => {
     location: "",
     category: "",
     maxParticipants: 0,
-    createdBy: auth?.userId, // Assure que l'ID de l'utilisateur est inclus
+    createdBy: auth?.userId, 
   });
 
   const [loading, setLoading] = useState(false);
@@ -48,7 +48,7 @@ const CreateEvent: React.FC = () => {
       console.log("Données envoyées à l'API :", event);
 
       await api.post("/events", event, {
-        headers: { Authorization: `Bearer ${auth?.token}` }, // 🔥 Vérifie que le token est bien envoyé
+        headers: { Authorization: `Bearer ${auth?.token}` },
       });
 
       setMessage("L'événement a bien été créé !");

@@ -107,7 +107,7 @@ export default function MyNavbar() {
                       <button
                         onClick={() => {
                           auth.logout();
-                          navigate("/"); // Rediriger après déconnexion
+                          navigate("/");
                         }}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 data-[active]:bg-gray-100"
                       >

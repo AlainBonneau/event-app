@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { motion } from "framer-motion";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axiosConfig";
@@ -41,7 +42,15 @@ const Login = () => {
   }, [isAuth, navigate]);
 
   return (
-    <section className="bg-gray-100 py-20 dark:bg-dark flex items-center justify-center min-h-screen">
+    <section className="bg-gray-100 py-20 dark:bg-dark flex flex-col items-center justify-center min-h-screen">
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="text-5xl font-bold text-primary pb-8"
+      >
+        Event'<span className="text-secondary">Go</span>
+      </motion.h1>
       <div className="w-full max-w-[500px] bg-white dark:bg-dark-2 rounded-lg shadow-lg p-10 text-center">
         <h2 className="text-4xl font-bold text-dark dark:text-white mb-6">
           Connexion

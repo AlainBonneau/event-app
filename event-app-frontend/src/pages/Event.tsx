@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router";
+import { motion } from "framer-motion";
 import api from "../api/axiosConfig";
 import EventCard from "../components/EventCard";
 import { AuthContext } from "../context/AuthContext";
@@ -31,7 +32,14 @@ const EventPage = () => {
 
   return (
     <div className="EventPage-page">
-      <h1 className="pt-18 text-center text-4xl">Événements</h1>
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="text-5xl font-bold text-primary pt-18 text-center"
+      >
+        Event'<span className="text-secondary">Go</span>
+      </motion.h1>
       {(auth?.role === "admin" || auth?.role === "organisateur") && (
         <div className="btn-container flex items-center justify-end pr-4">
           <button

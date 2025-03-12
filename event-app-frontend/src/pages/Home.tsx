@@ -58,7 +58,7 @@ const Home = () => {
                hover:bg-orange-500 hover:border-orange-500 
                active:scale-95 active:bg-orange-600 
                focus:outline-none focus:ring-2 focus:ring-orange-300"
-                  href="#aboutSection"
+                  href="#about-section"
                 >
                   Voir plus
                 </a>
@@ -67,7 +67,7 @@ const Home = () => {
           </section>
         </div>
       </div>
-      <section id="aboutSection" className="about-section">
+      <section id="about-section" className="about-section">
         <About />
       </section>
       <section className="presentation-section">

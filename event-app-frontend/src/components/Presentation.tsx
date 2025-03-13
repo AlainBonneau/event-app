@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Presentation = () => {
   return (
     <>
@@ -626,12 +628,12 @@ const Presentation = () => {
                   notre plateforme intuitive, l’inscription et l’organisation
                   d’événements n’ont jamais été aussi simples.
                 </p>
-                <a
-                  href="/events"
+                <Link
+                  to="/events"
                   className="inline-flex items-center justify-center py-3 text-base font-medium text-center text-white border border-transparent rounded-md px-7 bg-primary hover:bg-opacity-90"
                 >
                   C'est parti !
-                </a>
+                </Link>
               </div>
             </div>
           </div>

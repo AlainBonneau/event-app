@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import api from "../api/axiosConfig";
 import axios from "axios";
@@ -127,9 +127,9 @@ const Register = () => {
         </form>
         <p className="mt-4 text-gray-600 dark:text-gray-400">
           Déjà inscrit ?{" "}
-          <a href="/login" className="text-primary hover:underline">
+          <Link to="/login" className="text-primary hover:underline">
             Connexion
-          </a>
+          </Link>
         </p>
       </div>
     </section>

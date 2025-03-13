@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { motion } from "framer-motion";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../api/axiosConfig";
 
 const Login = () => {
@@ -82,9 +82,9 @@ const Login = () => {
         </form>
         <p className="mt-4 text-gray-600 dark:text-gray-400">
           Pas encore inscrit ?{" "}
-          <a href="/register" className="text-primary hover:underline">
+          <Link to="/register" className="text-primary hover:underline">
             S'inscrire
-          </a>
+          </Link>
         </p>
       </div>
     </section>

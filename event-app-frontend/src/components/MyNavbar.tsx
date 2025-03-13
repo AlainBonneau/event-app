@@ -14,10 +14,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import avatarIcon from "../user.png";
 
 const navigation = [
-  { name: "Accueil", href: "/" },
-  { name: "Evénements", href: "/events" },
-  { name: "Projets", href: "/projects" },
-  { name: "Qui suis-je ?", href: "/about-me" },
+  { name: "Accueil", href: "/", aria: "home-page" },
+  { name: "Evénements", href: "/events", aria: "events-page" },
+  { name: "Projets", href: "/projects", aria: "projects-page" },
+  { name: "Qui suis-je ?", href: "/about-me", aria: "about-me-page" },
 ];
 
 function classNames(...classes: string[]) {
@@ -39,7 +39,10 @@ export default function MyNavbar() {
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
               {/* Mobile menu button */}
-              <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-none focus:ring-inset">
+              <DisclosureButton
+                aria-label="Ouvrir menu navigation"
+                className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-none focus:ring-inset"
+              >
                 <Bars3Icon
                   aria-hidden="true"
                   className="block size-6 group-data-open:hidden"
@@ -105,6 +108,7 @@ export default function MyNavbar() {
 
                     <MenuItem as="div">
                       <button
+                        aria-label="Se déconnecter"
                         onClick={() => {
                           auth.logout();
                           navigate("/");
@@ -119,6 +123,7 @@ export default function MyNavbar() {
               ) : (
                 <div className="flex space-x-4">
                   <Link
+                    aria-label="Connexion"
                     to="/login"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
@@ -144,6 +149,7 @@ export default function MyNavbar() {
                 key={item.name}
                 as="a"
                 href={item.href}
+                aria-label={item.aria}
                 aria-current={
                   location.pathname === item.href ? "page" : undefined
                 }

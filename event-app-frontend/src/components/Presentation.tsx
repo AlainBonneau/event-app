@@ -9,15 +9,15 @@ const Presentation = () => {
                 <div className="w-full px-3 sm:px-4 xl:w-1/2">
                   <div className="py-3 sm:py-4">
                     <img
-                      src="./images/event3.jpg"
-                      alt=""
+                      src="./images/event3.webp"
+                      alt="image of an event"
                       className="w-full rounded-2xl"
                     />
                   </div>
                   <div className="py-3 sm:py-4">
                     <img
-                      src="./images/event2.jpg"
-                      alt=""
+                      src="./images/event2.webp"
+                      alt="image of an event"
                       className="w-full rounded-2xl"
                     />
                   </div>
@@ -25,8 +25,8 @@ const Presentation = () => {
                 <div className="w-full px-3 sm:px-4 xl:w-1/2">
                   <div className="relative z-10 my-4">
                     <img
-                      src="./images/event1.jpg"
-                      alt=""
+                      src="./images/event1.webp"
+                      alt="image of an event"
                       className="w-full rounded-2xl"
                     />
                     <span className="absolute -right-7 -bottom-7 z-[-1]">

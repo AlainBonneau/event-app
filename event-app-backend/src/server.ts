@@ -11,7 +11,14 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5002;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // 🔹 Autorise temporairement toutes les origines (⚠️ à sécuriser plus tard)
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // Permet l’envoi des cookies et des tokens d'authentification
+  })
+);
 
 app.use(express.json());
 

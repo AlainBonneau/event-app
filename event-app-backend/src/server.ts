@@ -11,7 +11,14 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5002;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://event-app-frontend-gilt.vercel.app", // Autoriser uniquement ton frontend
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(express.json());
 
 const startServer = async () => {

@@ -18,9 +18,6 @@ const EventPage = () => {
         if (!response || !response.data) {
           throw new Error("Réponse vide ou invalide");
         }
-
-        console.log("API response:", response.data);
-
         setEvents(response.data.allEvents);
       } catch (error) {
         console.error("Erreur lors du chargement des événements :", error);

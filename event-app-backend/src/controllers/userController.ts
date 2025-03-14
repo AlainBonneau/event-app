@@ -8,8 +8,6 @@ export const registerUser = async (
   res: Response
 ): Promise<void> => {
   try {
-    console.log("Données reçues:", req.body);
-
     const { email, lastname, firstname, password } = req.body;
 
     if (!email || !password || !lastname || !firstname) {
@@ -70,7 +68,12 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
     );
     res
       .status(200)
-      .json({ message: "Connexion réussie", token, userId: user.id, role: user.role });
+      .json({
+        message: "Connexion réussie",
+        token,
+        userId: user.id,
+        role: user.role,
+      });
   } catch (error) {
     res
       .status(500)

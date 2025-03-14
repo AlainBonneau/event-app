@@ -46,15 +46,12 @@ const EventDetail = () => {
       if (!auth?.token || !auth.userId || !id) return;
 
       const eventId = parseInt(id, 10);
-      console.log("Vérification → userId:", auth.userId, "eventId:", eventId);
 
       try {
         const response = await api.get(`participants/check`, {
           params: { userId: auth.userId, eventId },
           headers: { Authorization: `Bearer ${auth.token}` },
         });
-
-        console.log("Réponse de l'API :", response.data);
         setIsParticipated(response.data.isParticipating);
       } catch (error) {
         console.error(
@@ -146,8 +143,6 @@ const EventDetail = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
-  console.log("role:", auth?.role);
 
   if (loading)
     return <div className="text-center text-gray-600">Chargement...</div>;

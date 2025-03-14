@@ -13,7 +13,7 @@ const CreateEvent: React.FC = () => {
     location: "",
     category: "",
     maxParticipants: 0,
-    createdBy: auth?.userId, 
+    createdBy: auth?.userId,
   });
 
   const [loading, setLoading] = useState(false);
@@ -45,8 +45,6 @@ const CreateEvent: React.FC = () => {
     setMessage(null);
 
     try {
-      console.log("Données envoyées à l'API :", event);
-
       await api.post("/events", event, {
         headers: { Authorization: `Bearer ${auth?.token}` },
       });

@@ -26,12 +26,8 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("Données envoyées:", formData);
-
     try {
       const response = await api.post("users/register", formData);
-      console.log("Réponse API:", response.data);
-
       const token = response.data.token;
       const userId = response.data.userId;
       const role = response.data.role;

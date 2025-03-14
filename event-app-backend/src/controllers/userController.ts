@@ -3,6 +3,10 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
 export const registerUser = async (
   req: Request,
   res: Response
@@ -12,6 +16,19 @@ export const registerUser = async (
 
     if (!email || !password || !lastname || !firstname) {
       res.status(400).json({ message: "Tous les champs sont obligatoires." });
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      res.status(400).json({ message: "Format d'email invalide." });
+      return;
+    }
+
+    if (!passwordRegex.test(password)) {
+      res.status(400).json({
+        message:
+          "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.",
+      });
       return;
     }
 
@@ -66,14 +83,12 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
       process.env.JWT_SECRET as string,
       { expiresIn: "2h" }
     );
-    res
-      .status(200)
-      .json({
-        message: "Connexion réussie",
-        token,
-        userId: user.id,
-        role: user.role,
-      });
+    res.status(200).json({
+      message: "Connexion réussie",
+      token,
+      userId: user.id,
+      role: user.role,
+    });
   } catch (error) {
     res
       .status(500)

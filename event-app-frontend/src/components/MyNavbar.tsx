@@ -105,7 +105,16 @@ export default function MyNavbar() {
                         Profil
                       </Link>
                     </MenuItem>
-
+                    {auth?.role === "admin" && (
+                      <MenuItem as="div">
+                        <Link
+                          to="/admin/events"
+                          className="block px-4 py-2 text-sm text-gray-700 data-[active]:bg-gray-100"
+                        >
+                          Admin
+                        </Link>
+                      </MenuItem>
+                    )}
                     <MenuItem as="div">
                       <button
                         aria-label="Se déconnecter"

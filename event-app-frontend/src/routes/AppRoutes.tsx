@@ -8,6 +8,7 @@ import Register from "../pages/Register";
 import Profile from "../pages/Profile";
 import CreateEvent from "../pages/CreateEvent";
 import AboutMe from "../pages/AboutMe";
+import AdminPage from "../pages/Admin";
 import NotFound from "../pages/NotFound";
 
 const AppRoutes = () => {
@@ -21,6 +22,7 @@ const AppRoutes = () => {
       <Route path="/profile" element={<Profile />} />
       <Route path="/create-event" element={<CreateEvent />} />
       <Route path="/about-me" element={<AboutMe />} />
+      <Route path="/admin/events" element={<AdminPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

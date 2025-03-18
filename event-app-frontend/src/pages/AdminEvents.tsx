@@ -80,13 +80,14 @@ const AdminPage = () => {
 
       {message && <p className="text-center text-red-500">{message}</p>}
 
-      <div className="flex justify-between mb-4">
+      {/* 🔎 Barre de recherche et bouton ajouter */}
+      <div className="flex flex-col sm:flex-row justify-between mb-4 gap-3">
         <input
           type="text"
           placeholder="Rechercher un événement..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="px-4 py-2 border rounded-md w-1/3"
+          className="px-4 py-2 border rounded-md w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-primary"
         />
         <button
           className="px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-blue-600 transition"
@@ -96,7 +97,8 @@ const AdminPage = () => {
         </button>
       </div>
 
-      <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+      {/* ✅ Mode TABLEAU pour les grands écrans */}
+      <div className="hidden md:block overflow-x-auto bg-white shadow-md rounded-lg">
         <table className="min-w-full table-auto">
           <thead>
             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -116,24 +118,63 @@ const AdminPage = () => {
                   {new Date(event.date).toLocaleDateString("fr-FR")}
                 </td>
                 <td className="py-3 px-6">{event.maxParticipants}</td>
-                <td className="py-3 px-6 text-center">
+                <td className="py-3 px-6 text-center flex gap-3">
                   <button
                     onClick={() => navigate(`/edit-event/${event.id}`)}
-                    className="text-blue-500 hover:underline mx-2"
+                    className="flex-1 w-12 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition cursor-pointer"
                   >
-                    ✏ Modifier
+                    Modifier
                   </button>
                   <button
                     onClick={() => handleDelete(event.id)}
-                    className="text-red-500 hover:underline mx-2"
+                    className="flex-1 w-12 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition cursor-pointer"
                   >
-                    🗑 Supprimer
+                    Supprimer
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* ✅ Mode LISTE pour les petits écrans */}
+      <div className="md:hidden flex flex-col gap-4">
+        {filteredEvents.length > 0 ? (
+          filteredEvents.map((event) => (
+            <div
+              key={event.id}
+              className="bg-white dark:bg-dark-2 border border-gray-300 dark:border-gray-700 rounded-lg shadow-md p-4 flex flex-col"
+            >
+              <h3 className="text-lg font-semibold text-primary">
+                {event.title}
+              </h3>
+              <p className="text-gray-500 text-sm mt-1">📍 {event.location}</p>
+              <p className="text-gray-500 text-sm">
+                📅 {new Date(event.date).toLocaleDateString("fr-FR")}
+              </p>
+              <p className="text-gray-700 text-sm font-semibold">
+                👥 {event.maxParticipants} Participants max
+              </p>
+              <div className="flex gap-3 mt-3">
+                <button
+                  onClick={() => navigate(`/edit-event/${event.id}`)}
+                  className="flex-1 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
+                >
+                  Modifier
+                </button>
+                <button
+                  onClick={() => handleDelete(event.id)}
+                  className="flex-1 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition"
+                >
+                  Supprimer
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="text-center text-gray-500">Aucun événement trouvé.</p>
+        )}
       </div>
     </div>
   );

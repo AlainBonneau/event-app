@@ -47,7 +47,7 @@ const EventPage = () => {
           </button>
         </div>
       )}
-      <EventCard events={events} />
+      <EventCard events={events} isLoading={false} />
     </div>
   );
 };

@@ -7,6 +7,7 @@ import {
   updateProfile,
   deleteAccount,
   getAllUsers,
+  deleteUser,
 } from "../controllers/userController";
 import { isAuthenticated } from "../middlewares/isAuthenticated";
 import { isAdmin } from "../middlewares/authMiddleware";
@@ -20,5 +21,6 @@ router.put("/me/update", isAuthenticated, updateProfile);
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.delete("/me/delete", isAuthenticated, deleteAccount);
+router.delete("/:id", isAuthenticated, isAdmin, deleteUser);
 
 export default router;

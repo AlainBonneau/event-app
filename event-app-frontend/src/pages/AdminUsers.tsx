@@ -125,10 +125,11 @@ const AdminUsers = () => {
                     {user.role}
                   </span>
                 </td>
-                <td className="p-3 text-center">
+                <td className="p-3 text-center flex gap-3">
+                    <button className="flex-1 w-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition cursor-pointer">Modifier</button>
                   <button
                     onClick={() => handleDeleteUser(user.id)}
-                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                    className="flex-1 w-4 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition cursor-pointer"
                   >
                     Supprimer
                   </button>

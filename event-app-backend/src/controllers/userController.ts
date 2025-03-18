@@ -233,10 +233,32 @@ export const getAllUsers = async (
     const users = await User.findAll({ attributes: { exclude: ["password"] } });
     res.status(200).json({ allUsers: users });
   } catch (error) {
+    res.status(500).json({
+      message: "Erreur lors de la récupération des utilisateurs",
+      error,
+    });
+  }
+};
+
+export const deleteUser = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const deletedUser = await User.destroy({ where: { id } });
+
+    if (deletedUser === 0) {
+      res.status(404).json({ message: "Utilisateur introuvable" });
+      return;
+    }
+
+    res.status(200).json({ message: "Utilisateur supprimé avec succès" });
+  } catch (error) {
     res
       .status(500)
       .json({
-        message: "Erreur lors de la récupération des utilisateurs",
+        message: "Erreur lors de la suppression de l'utilisateur",
         error,
       });
   }

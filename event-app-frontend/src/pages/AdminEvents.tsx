@@ -80,7 +80,7 @@ const AdminPage = () => {
 
       {message && <p className="text-center text-red-500">{message}</p>}
 
-      {/* 🔎 Barre de recherche et bouton ajouter */}
+      {/* Barre de recherche et bouton ajouter */}
       <div className="flex flex-col sm:flex-row justify-between mb-4 gap-3">
         <input
           type="text"
@@ -97,7 +97,7 @@ const AdminPage = () => {
         </button>
       </div>
 
-      {/* ✅ Mode TABLEAU pour les grands écrans */}
+      {/* Mode TABLEAU pour les grands écrans */}
       <div className="hidden md:block overflow-x-auto bg-white shadow-md rounded-lg">
         <table className="min-w-full table-auto">
           <thead>
@@ -138,7 +138,7 @@ const AdminPage = () => {
         </table>
       </div>
 
-      {/* ✅ Mode LISTE pour les petits écrans */}
+      {/* Mode LISTE pour les petits écrans */}
       <div className="md:hidden flex flex-col gap-4">
         {filteredEvents.length > 0 ? (
           filteredEvents.map((event) => (

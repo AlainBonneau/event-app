@@ -74,7 +74,7 @@ const AdminPage = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold text-center text-primary mb-6">
+      <h1 className="text-3xl font-bold text-center text-primary mb-4 mt-10">
         📊 Gestion des événements
       </h1>
 
@@ -93,7 +93,7 @@ const AdminPage = () => {
           className="px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-blue-600 transition"
           onClick={() => navigate("/create-event")}
         >
-          ➕ Ajouter un événement
+          Ajouter un événement
         </button>
       </div>
 

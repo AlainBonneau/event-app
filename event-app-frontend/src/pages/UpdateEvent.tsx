@@ -52,6 +52,7 @@ const UpdateEvent = () => {
       });
 
       setMessage("✅ Événement modifié avec succès !");
+      navigate(`/events/${event.id}`);
     } catch (error) {
       console.error("Erreur lors de la modification :", error);
       setMessage("❌ Une erreur est survenue.");

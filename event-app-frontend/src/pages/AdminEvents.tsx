@@ -120,7 +120,7 @@ const AdminPage = () => {
                 <td className="py-3 px-6">{event.maxParticipants}</td>
                 <td className="py-3 px-6 text-center flex gap-3">
                   <button
-                    onClick={() => navigate(`/edit-event/${event.id}`)}
+                    onClick={() => navigate(`/admin/events/${event.id}`)}
                     className="flex-1 w-12 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition cursor-pointer"
                   >
                     Modifier
@@ -158,7 +158,7 @@ const AdminPage = () => {
               </p>
               <div className="flex gap-3 mt-3">
                 <button
-                  onClick={() => navigate(`/edit-event/${event.id}`)}
+                  onClick={() => navigate(`/admin/events/${event.id}`)}
                   className="flex-1 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
                 >
                   Modifier

@@ -11,6 +11,7 @@ import AboutMe from "../pages/AboutMe";
 import AdminPage from "../pages/AdminEvents";
 import AdminUsers from "../pages/AdminUsers";
 import UpdateEvent from "../pages/UpdateEvent";
+import UpdateUser from "../pages/UpdateUser";
 import NotFound from "../pages/NotFound";
 
 const AppRoutes = () => {
@@ -27,6 +28,7 @@ const AppRoutes = () => {
       <Route path="/admin/events" element={<AdminPage />} />
       <Route path="/admin/users" element={<AdminUsers />} />
       <Route path="/admin/events/:id" element={<UpdateEvent />} />
+      <Route path="/admin/users/:id" element={<UpdateUser />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

@@ -7,13 +7,19 @@ interface User {
   id: number;
   name: string;
   email: string;
+  role: string;
 }
 
 const UpdateUser = () => {
   const auth = useContext(AuthContext);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User>({
+    id: 0,
+    name: "",
+    email: "",
+    role: "participant", // Valeur par défaut
+  });
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState<string | null>(null);
 
@@ -51,7 +57,7 @@ const UpdateUser = () => {
       });
 
       setMessage("✅ Utilisateur modifié avec succès !");
-      navigate(`/users/${user.id}`);
+      setTimeout(() => navigate("/admin/users"), 1500);
     } catch (error) {
       console.error("Erreur lors de la modification :", error);
       setMessage("❌ Une erreur est survenue.");
@@ -62,7 +68,7 @@ const UpdateUser = () => {
     <div className="container mx-auto max-w-xl mt-16 px-4">
       {loading && <p className="text-center text-gray-500">Chargement...</p>}
 
-      {user && (
+      {!loading && (
         <div className="bg-white dark:bg-dark-2 p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold text-primary mb-6 text-center">
             Modifier l'utilisateur
@@ -84,6 +90,7 @@ const UpdateUser = () => {
                 value={user.name}
                 onChange={(e) => setUser({ ...user, name: e.target.value })}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                required
               />
             </div>
 
@@ -96,7 +103,23 @@ const UpdateUser = () => {
                 value={user.email}
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                required
               />
+            </div>
+
+            <div>
+              <label className="block mb-1 font-semibold text-gray-700">
+                Rôle :
+              </label>
+              <select
+                value={user.role}
+                onChange={(e) => setUser({ ...user, role: e.target.value })}
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <option value="participant">Participant</option>
+                <option value="organisateur">Organisateur</option>
+                <option value="admin">Admin</option>
+              </select>
             </div>
 
             <button

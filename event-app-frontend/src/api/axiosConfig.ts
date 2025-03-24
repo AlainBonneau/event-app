@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://147.93.55.31:5002/api",
+  baseURL: "https://event-api.sparcky-dev.fr/api",
   headers: {
     "Content-Type": "application/json",
   },

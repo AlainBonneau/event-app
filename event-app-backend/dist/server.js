@@ -22,11 +22,22 @@ const ParticipantRoutes_1 = __importDefault(require("./routes/ParticipantRoutes"
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 5002;
-app.use((0, cors_1.default)({
-    origin: "https://event-app-frontend-gilt.vercel.app", // Autoriser uniquement ton frontend
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-}));
+const allowedOrigins = ["https://event-app-frontend-pearl.vercel.app"];
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Accès non autorisé par CORS"));
+//       }
+//     },
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     credentials: true, // Permet l'envoi des cookies et tokens d'authentification
+//   })
+// );
+app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
     try {

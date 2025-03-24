@@ -11,24 +11,22 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5002;
 
-const allowedOrigins = ["https://event-app-frontend-pearl.vercel.app"];
+const allowedOrigins = ["https://event-app-frontend-kappa.vercel.app/"];
 
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error("Accès non autorisé par CORS"));
-//       }
-//     },
-//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//     credentials: true, // Permet l'envoi des cookies et tokens d'authentification
-//   })
-// );
-
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Accès non autorisé par CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // Permet l'envoi des cookies et tokens d'authentification
+  })
+);
 
 app.use(express.json());
 

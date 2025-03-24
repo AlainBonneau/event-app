@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5002;
 
-const allowedOrigins = ["https://event-app-frontend-kappa.vercel.app/"];
+const allowedOrigins = ["https://event-app-frontend-gamma.vercel.app/"];
 
 app.use(
   cors({

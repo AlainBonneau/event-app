@@ -1,4 +1,17 @@
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router";
+import { AuthContext } from "../context/AuthContext";
+
 const AdminPage = () => {
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (auth?.role !== "admin") {
+      navigate("/404");
+    }
+  }, [auth?.role, navigate]);
+
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 dark:bg-dark px-4">
       <div className="bg-white dark:bg-dark-2 shadow-lg rounded-lg p-10 w-full max-w-md text-center">

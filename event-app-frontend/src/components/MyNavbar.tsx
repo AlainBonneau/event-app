@@ -108,7 +108,7 @@ export default function MyNavbar() {
                     {auth?.role === "admin" && (
                       <MenuItem as="div">
                         <Link
-                          to="/admin/events"
+                          to="/admin"
                           className="block px-4 py-2 text-sm text-gray-700 data-[active]:bg-gray-100"
                         >
                           Admin

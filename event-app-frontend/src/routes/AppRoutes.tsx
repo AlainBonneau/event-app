@@ -8,7 +8,8 @@ import Register from "../pages/Register";
 import Profile from "../pages/Profile";
 import CreateEvent from "../pages/CreateEvent";
 import AboutMe from "../pages/AboutMe";
-import AdminPage from "../pages/AdminEvents";
+import AdminPage from "../pages/AdminPage";
+import AdminEvents from "../pages/AdminEvents";
 import AdminUsers from "../pages/AdminUsers";
 import UpdateEvent from "../pages/UpdateEvent";
 import UpdateUser from "../pages/UpdateUser";
@@ -25,7 +26,8 @@ const AppRoutes = () => {
       <Route path="/profile" element={<Profile />} />
       <Route path="/create-event" element={<CreateEvent />} />
       <Route path="/about-me" element={<AboutMe />} />
-      <Route path="/admin/events" element={<AdminPage />} />
+      <Route path="/admin" element={<AdminPage />} />
+      <Route path="/admin/events" element={<AdminEvents />} />
       <Route path="/admin/users" element={<AdminUsers />} />
       <Route path="/admin/events/:id" element={<UpdateEvent />} />
       <Route path="/admin/users/:id" element={<UpdateUser />} />

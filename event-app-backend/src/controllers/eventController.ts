@@ -25,7 +25,7 @@ export const createEvent = async (
       !maxParticipants ||
       !createdBy
     ) {
-      res.status(400).json({ message: "Tous les champs sont obligatoire" });
+      res.status(400).json({ message: "Tous les champs sont obligatoires" });
       return;
     }
 
@@ -41,7 +41,7 @@ export const createEvent = async (
 
     res
       .status(200)
-      .json({ message: "Event créer avec succès", newEvent: createdEvent });
+      .json({ message: "Événement créé avec succès", newEvent: createdEvent });
   } catch (error) {
     res
       .status(500)

@@ -21,7 +21,7 @@ const createEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             !category ||
             !maxParticipants ||
             !createdBy) {
-            res.status(400).json({ message: "Tous les champs sont obligatoire" });
+            res.status(400).json({ message: "Tous les champs sont obligatoires" });
             return;
         }
         const createdEvent = yield models_1.Event.create({
@@ -35,7 +35,7 @@ const createEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         });
         res
             .status(200)
-            .json({ message: "Event créer avec succès", newEvent: createdEvent });
+            .json({ message: "Événement créé avec succès", newEvent: createdEvent });
     }
     catch (error) {
         res
